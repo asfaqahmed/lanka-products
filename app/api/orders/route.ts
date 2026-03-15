@@ -4,9 +4,7 @@ import { z } from 'zod'
 import { buildPayhereConfig } from '@/lib/payhere'
 import { sendOrderConfirmation } from '@/lib/email'
 
-// Use untyped client for mutations — Supabase JS v2 generic inference
-// incorrectly narrows insert/update params to `never` in some TS configs
-const supabase = createClient(
+const getSupabase = () => createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 )
@@ -48,6 +46,7 @@ function generateOrderNumber(): string {
 }
 
 export async function POST(request: NextRequest) {
+  const supabase = getSupabase()
   try {
     const body = await request.json()
 
@@ -180,6 +179,7 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET(request: NextRequest) {
+  const supabase = getSupabase()
   try {
     const { searchParams } = new URL(request.url)
     const orderId = searchParams.get('id')

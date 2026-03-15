@@ -331,7 +331,7 @@ export default function CheckoutClient() {
                     <span className="font-semibold text-charcoal text-sm">Secure Payment</span>
                   </div>
                   <p className="text-muted-foreground text-xs">
-                    Your payment is processed securely by PayHere. We accept Visa, Mastercard, American Express, and more.
+                    Your payment is processed securely by PayHere. We accept Visa, Mastercard, and more.
                   </p>
                 </div>
 

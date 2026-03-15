@@ -3,12 +3,11 @@ import { createClient } from '@supabase/supabase-js'
 import { verifyPayhereNotification } from '@/lib/payhere'
 import { sendOrderStatusUpdate } from '@/lib/email'
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-)
-
 export async function POST(request: NextRequest) {
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  )
   try {
     const formData = await request.formData()
 
