@@ -37,10 +37,11 @@ export default function AdminProductsPage() {
   useEffect(() => {
     loadProducts()
     loadCategories()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleToggleActive = async (product: ProductWithImages) => {
-    const { error } = await supabase
+    const { error } = await (supabase as any)
       .from('products')
       .update({ is_active: !product.is_active })
       .eq('id', product.id)

@@ -58,13 +58,13 @@ export default function AdminOrdersPage() {
 
   useEffect(() => {
     loadOrders()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [statusFilter])
 
   const handleStatusUpdate = async (orderId: string, newStatus: string) => {
     setIsUpdating(true)
-    const { error } = await supabase
-      .from('orders')
-      .update({ status: newStatus as any })
+    const { error } = await (supabase.from('orders') as any)
+      .update({ status: newStatus })
       .eq('id', orderId)
 
     if (!error) {
@@ -81,8 +81,7 @@ export default function AdminOrdersPage() {
     if (!trackingInput.trim()) return
 
     setIsUpdating(true)
-    const { error } = await supabase
-      .from('orders')
+    const { error } = await (supabase.from('orders') as any)
       .update({ tracking_number: trackingInput.trim() })
       .eq('id', orderId)
 

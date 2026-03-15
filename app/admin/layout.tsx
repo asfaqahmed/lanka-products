@@ -44,7 +44,7 @@ export default function AdminLayout({
         .from('profiles')
         .select('role')
         .eq('id', user.id)
-        .single()
+        .single() as { data: { role: string } | null, error: unknown }
 
       if (profile?.role !== 'admin') {
         router.push('/')

@@ -43,7 +43,7 @@ export function Footer() {
 
             <p className="text-gray-400 text-sm leading-relaxed mb-6 max-w-sm">
               Bringing the authentic flavors, crafts, and heritage of Sri Lanka to homes around the world.
-              Each product tells a story of the island's rich culture and traditions.
+              Each product tells a story of the island&apos;s rich culture and traditions.
             </p>
 
             {/* Contact Info */}

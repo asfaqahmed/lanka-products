@@ -50,7 +50,7 @@ export function HeroSection() {
 
             <p className="text-white/85 text-xl leading-relaxed mb-8 max-w-lg">
               Authentic Sri Lankan products delivered worldwide. From aromatic Ceylon spices to
-              exquisite handcrafted treasures — experience the island's rich heritage.
+              exquisite handcrafted treasures — experience the island&apos;s rich heritage.
             </p>
 
             {/* Trust Indicators */}

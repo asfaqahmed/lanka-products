@@ -3,9 +3,10 @@ import { createClient } from '@supabase/supabase-js'
 import { z } from 'zod'
 import { buildPayhereConfig } from '@/lib/payhere'
 import { sendOrderConfirmation } from '@/lib/email'
-import type { Database } from '@/lib/supabase/types'
 
-const supabase = createClient<Database>(
+// Use untyped client for mutations — Supabase JS v2 generic inference
+// incorrectly narrows insert/update params to `never` in some TS configs
+const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 )

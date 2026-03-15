@@ -3,6 +3,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Gift, Star, ArrowRight, Check } from 'lucide-react'
 import { createServerClient } from '@/lib/supabase/server'
+
+export const dynamic = 'force-dynamic'
 import { Button } from '@/components/ui/button'
 import { formatPrice } from '@/lib/utils'
 import type { GiftBoxWithItems } from '@/lib/supabase/types'

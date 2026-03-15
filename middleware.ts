@@ -1,11 +1,10 @@
 import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import type { Database } from '@/lib/supabase/types'
 
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next()
-  const supabase = createMiddlewareClient<Database>({ req, res })
+  const supabase = createMiddlewareClient({ req, res })
 
   // Refresh session if expired
   const {
@@ -38,7 +37,7 @@ export async function middleware(req: NextRequest) {
       .from('profiles')
       .select('role')
       .eq('id', session.user.id)
-      .single()
+      .single() as { data: { role: string } | null }
 
     if (profile?.role !== 'admin') {
       const redirectUrl = req.nextUrl.clone()

@@ -8,6 +8,8 @@ import { Button } from '@/components/ui/button'
 import { useCartStore } from '@/lib/store/cart'
 import { formatPrice } from '@/lib/utils'
 
+export const dynamic = 'force-dynamic'
+
 export default function CartPage() {
   const { items, removeItem, updateQuantity, getTotalPrice, clearCart } = useCartStore()
   const [promoCode, setPromoCode] = useState('')

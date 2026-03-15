@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
-import type { Database } from '@/lib/supabase/types'
 
-const supabase = createClient<Database>(
+const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 )
@@ -11,11 +10,24 @@ export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const countryCode = searchParams.get('country')?.toUpperCase()
 
+  // No country param — return all active rates
   if (!countryCode) {
-    return NextResponse.json(
-      { error: 'Country code required' },
-      { status: 400 }
-    )
+    try {
+      const { data: rates, error } = await supabase
+        .from('shipping_rates')
+        .select('*')
+        .eq('is_active', true)
+        .order('country_name')
+
+      if (error) throw error
+
+      return NextResponse.json(rates || [])
+    } catch (error) {
+      return NextResponse.json(
+        { error: 'Failed to fetch shipping rates' },
+        { status: 500 }
+      )
+    }
   }
 
   try {
@@ -48,25 +60,6 @@ export async function GET(request: NextRequest) {
     console.error('Shipping rate error:', error)
     return NextResponse.json(
       { error: 'Failed to fetch shipping rate' },
-      { status: 500 }
-    )
-  }
-}
-
-export async function GET_ALL() {
-  try {
-    const { data: rates, error } = await supabase
-      .from('shipping_rates')
-      .select('*')
-      .eq('is_active', true)
-      .order('country_name')
-
-    if (error) throw error
-
-    return NextResponse.json(rates || [])
-  } catch (error) {
-    return NextResponse.json(
-      { error: 'Failed to fetch shipping rates' },
       { status: 500 }
     )
   }

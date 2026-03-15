@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import { createServerClient } from '@/lib/supabase/server'
+
+export const dynamic = 'force-dynamic'
 import { ShopClient } from '@/components/shop/ShopClient'
 import type { Category, ProductWithImages } from '@/lib/supabase/types'
 

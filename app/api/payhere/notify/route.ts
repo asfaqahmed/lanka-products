@@ -2,9 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { verifyPayhereNotification } from '@/lib/payhere'
 import { sendOrderStatusUpdate } from '@/lib/email'
-import type { Database } from '@/lib/supabase/types'
 
-const supabase = createClient<Database>(
+const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 )
@@ -97,25 +96,18 @@ export async function POST(request: NextRequest) {
       if (orderItems) {
         for (const item of orderItems) {
           if (item.product_id) {
-            await supabase.rpc('decrement_inventory', {
-              p_product_id: item.product_id,
-              p_quantity: item.quantity,
-            }).catch(() => {
-              // RPC might not exist, use manual update
-              supabase
+            // Manually decrement inventory
+            const { data: inv } = await supabase
+              .from('inventory')
+              .select('quantity')
+              .eq('product_id', item.product_id)
+              .single()
+            if (inv) {
+              await supabase
                 .from('inventory')
-                .select('quantity')
-                .eq('product_id', item.product_id!)
-                .single()
-                .then(({ data: inv }) => {
-                  if (inv) {
-                    supabase
-                      .from('inventory')
-                      .update({ quantity: Math.max(0, inv.quantity - item.quantity) })
-                      .eq('product_id', item.product_id!)
-                  }
-                })
-            })
+                .update({ quantity: Math.max(0, inv.quantity - item.quantity) })
+                .eq('product_id', item.product_id)
+            }
           }
         }
       }

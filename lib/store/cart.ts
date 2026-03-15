@@ -76,7 +76,17 @@ export const useCartStore = create<CartState>()(
     }),
     {
       name: 'lanka-products-cart',
-      storage: createJSONStorage(() => localStorage),
+      storage: createJSONStorage(() =>
+        typeof window !== 'undefined' ? localStorage : ({
+          getItem: () => null,
+          setItem: () => {},
+          removeItem: () => {},
+          length: 0,
+          clear: () => {},
+          key: () => null,
+        } as Storage)
+      ),
+      skipHydration: true,
     }
   )
 )

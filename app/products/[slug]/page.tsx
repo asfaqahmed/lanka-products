@@ -4,6 +4,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Star, Package, Truck, ShieldCheck, ArrowLeft } from 'lucide-react'
 import { createServerClient } from '@/lib/supabase/server'
+
+export const dynamic = 'force-dynamic'
 import { ProductCard } from '@/components/products/ProductCard'
 import { ReviewSection } from '@/components/products/ReviewSection'
 import { AddToCartSection } from '@/components/products/AddToCartSection'

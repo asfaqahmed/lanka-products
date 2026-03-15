@@ -16,6 +16,7 @@ const playfair = Playfair_Display({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://lankaproducts.com'),
   title: {
     default: 'Lanka Products - Authentic Sri Lankan Products Delivered Worldwide',
     template: '%s | Lanka Products',

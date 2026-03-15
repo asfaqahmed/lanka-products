@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -22,7 +22,7 @@ const ORDER_STATUS_COLORS: Record<string, string> = {
   refunded: 'bg-gray-100 text-gray-700',
 }
 
-export default function DashboardPage() {
+function DashboardContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [activeTab, setActiveTab] = useState<DashboardTab>(
@@ -293,7 +293,7 @@ function ProfileForm({
     if (!profile) return
 
     setIsSaving(true)
-    const { data, error } = await supabase
+    const { data, error } = await (supabase as any)
       .from('profiles')
       .update({ full_name: fullName, phone })
       .eq('id', profile.id)
@@ -345,5 +345,13 @@ function ProfileForm({
         {success && <span className="text-tea text-sm font-medium">Saved!</span>}
       </div>
     </form>
+  )
+}
+
+export default function DashboardPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-cream flex items-center justify-center"><div className="animate-spin rounded-full h-8 w-8 border-2 border-cinnamon border-t-transparent" /></div>}>
+      <DashboardContent />
+    </Suspense>
   )
 }

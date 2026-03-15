@@ -1,5 +1,5 @@
 import { createServerClient } from '@/lib/supabase/server'
-import { ShoppingBag, Package, Users, DollarSign, TrendingUp, AlertTriangle, ArrowRight } from 'lucide-react'
+import { ShoppingBag, Package, Users, DollarSign, TrendingUp, AlertTriangle, ArrowRight, Settings } from 'lucide-react'
 import Link from 'next/link'
 import { formatPrice } from '@/lib/utils'
 
@@ -18,7 +18,7 @@ async function getStats() {
       supabase.from('orders').select('*', { count: 'exact', head: true }),
       supabase.from('products').select('*', { count: 'exact', head: true }).eq('is_active', true),
       supabase.from('profiles').select('*', { count: 'exact', head: true }).eq('role', 'customer'),
-      supabase.from('orders').select('total').eq('payment_status', 'paid'),
+      (supabase as any).from('orders').select('total').eq('payment_status', 'paid') as Promise<{ data: Array<{ total: number }> | null }>,
       supabase
         .from('orders')
         .select('*, order_items(count)')

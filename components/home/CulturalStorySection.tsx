@@ -104,7 +104,7 @@ export function CulturalStorySection() {
                 True Ceylon Cinnamon —<br />Not What You Think
               </h3>
               <p className="text-white/80 leading-relaxed mb-6">
-                Did you know that most "cinnamon" sold worldwide is actually Cassia? True Ceylon
+                Did you know that most &ldquo;cinnamon&rdquo; sold worldwide is actually Cassia? True Ceylon
                 cinnamon, grown only in Sri Lanka, has a delicate, sweet flavor and is significantly
                 healthier. Our farmers harvest it by hand, roll it into quills, and ship it directly to you.
               </p>
