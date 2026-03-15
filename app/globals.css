@@ -1,0 +1,187 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 30 100% 97%;
+    --foreground: 0 0% 17%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 17%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 17%;
+
+    --primary: 22 100% 24%;
+    --primary-foreground: 30 100% 97%;
+
+    --secondary: 143 25% 39%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 30 60% 94%;
+    --muted-foreground: 0 0% 45%;
+
+    --accent: 40 53% 54%;
+    --accent-foreground: 0 0% 17%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 30 40% 88%;
+    --input: 30 40% 88%;
+    --ring: 22 100% 24%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 0 0% 10%;
+    --foreground: 30 100% 97%;
+
+    --card: 0 0% 13%;
+    --card-foreground: 30 100% 97%;
+
+    --popover: 0 0% 13%;
+    --popover-foreground: 30 100% 97%;
+
+    --primary: 22 100% 35%;
+    --primary-foreground: 30 100% 97%;
+
+    --secondary: 143 25% 39%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 0 0% 18%;
+    --muted-foreground: 0 0% 64%;
+
+    --accent: 40 53% 54%;
+    --accent-foreground: 0 0% 10%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 22%;
+    --input: 0 0% 22%;
+    --ring: 22 100% 35%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+}
+
+@layer components {
+  .btn-cinnamon {
+    @apply bg-cinnamon hover:bg-cinnamon-dark text-white transition-colors duration-200;
+  }
+
+  .btn-gold {
+    @apply bg-gold hover:bg-gold-dark text-charcoal transition-colors duration-200;
+  }
+
+  .btn-tea {
+    @apply bg-tea hover:bg-tea-dark text-white transition-colors duration-200;
+  }
+
+  .section-heading {
+    @apply text-3xl md:text-4xl font-serif font-bold text-charcoal;
+  }
+
+  .section-subheading {
+    @apply text-lg text-muted-foreground mt-2;
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+  }
+
+  .product-card {
+    @apply bg-white rounded-xl overflow-hidden shadow-sm border border-border card-hover;
+  }
+
+  .badge-category {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-tea/10 text-tea;
+  }
+
+  .price-tag {
+    @apply text-cinnamon font-bold;
+  }
+
+  .compare-price {
+    @apply text-muted-foreground line-through text-sm;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .gradient-ceylon {
+    background: linear-gradient(135deg, #7B3F00 0%, #4A7C59 100%);
+  }
+
+  .gradient-gold {
+    background: linear-gradient(135deg, #C9A84C 0%, #E8C96A 100%);
+  }
+
+  .pattern-batik {
+    background-color: #FFF8F0;
+    background-image: radial-gradient(circle at 25% 25%, #7B3F0015 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, #4A7C5915 0%, transparent 50%);
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #7B3F00;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #5C2E00;
+}
+
+/* Focus ring */
+:focus-visible {
+  outline: 2px solid #7B3F00;
+  outline-offset: 2px;
+}
+
+/* Selection */
+::selection {
+  background: #C9A84C40;
+  color: #7B3F00;
+}
+
+/* Animations */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #f0e6d6 25%, #fdf6ee 50%, #f0e6d6 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
